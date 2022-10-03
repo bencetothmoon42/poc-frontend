@@ -1,8 +1,26 @@
-import { DataGrid, GridColDef, GridRowsProp } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { gql, useQuery } from "@apollo/client";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { printersTableStyle } from "../styles/mui-datagrid";
-import { printerDataFactory } from "../utils/data-factory";
+
+const GET_PRINTERS = gql`
+  query {
+    getAllPrinter {
+      id
+      name
+      description
+      enabled
+      activePaperId
+      dataFormat
+      location
+      model
+      serialNumber
+      comment
+      destinationId
+    }
+  }
+`;
 
 const columns: GridColDef[] = [
   {
@@ -11,7 +29,7 @@ const columns: GridColDef[] = [
     minWidth: 180,
     cellClassName: "column-with-bold-text",
   },
-  { field: "active_paper_id", headerName: "Current paper", minWidth: 170 },
+  { field: "activePaperId", headerName: "Current paper", minWidth: 170 },
   { field: "comment", headerName: "Comment", minWidth: 160 },
   {
     field: "enabled",
@@ -20,8 +38,6 @@ const columns: GridColDef[] = [
     cellClassName: "column-with-centered-text",
   },
 ];
-
-const rows: GridRowsProp = printerDataFactory();
 
 export interface IFilter {
   columnField: string;
@@ -35,26 +51,76 @@ const initialFilter = {
   value: "",
 };
 
+interface IPrinter {
+  id: string,
+  name: string,
+  description: string,
+  enabled: boolean,
+  activePaperId: number,
+  dataFormat: string,
+  location: string,
+  model: string,
+  serialNumber: string,
+  comment: string,
+  destinationId: string,
+}
+
+interface IConvertedPrinter {
+  id: string,
+  name: string,
+  description: string,
+  enabled: boolean,
+  activePaperId: string,
+  dataFormat: string,
+  location: string,
+  model: string,
+  serialNumber: string,
+  comment: string,
+  destinationId: string,
+}
+
 const PrintersTable: NextPage = () => {
   const [filter, setFilter] = useState<IFilter>(initialFilter);
   const [isPaperType1Checked, setIsPaperType1Checked] =
     useState<boolean>(false);
   const [isPaperType2Checked, setIsPaperType2Checked] =
     useState<boolean>(false);
+  const [printerData, setPrinterData] = useState<IConvertedPrinter[]>([]);
+
+  const { data, error } = useQuery(GET_PRINTERS);
+
+  const convertPrinterData = (data: IPrinter[]): IConvertedPrinter[] => {
+    let convertedPrinterData: IConvertedPrinter[] = [];
+    convertedPrinterData = data.map((printer) =>
+    printer.activePaperId % 2 === 0
+        ? { ...printer, activePaperId: "sticky label paper" }
+        : { ...printer, activePaperId: "instruction paper" },
+    );
+    return convertedPrinterData
+  }
+
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+    }
+    if (data?.getAllPrinter) {
+      setPrinterData(convertPrinterData(data.getAllPrinter))
+    }
+  }, [data, error]);
 
   useEffect(() => {
     if (isPaperType1Checked && isPaperType2Checked) setFilter(initialFilter);
     if (!isPaperType1Checked && !isPaperType2Checked) setFilter(initialFilter);
     if (isPaperType1Checked && !isPaperType2Checked) {
       setFilter({
-        columnField: "active_paper_id",
+        columnField: "activePaperId",
         operatorValue: "contains",
         value: "sticky label paper",
       });
     }
     if (isPaperType2Checked && !isPaperType1Checked) {
       setFilter({
-        columnField: "active_paper_id",
+        columnField: "activePaperId",
         operatorValue: "contains",
         value: "instruction paper",
       });
@@ -125,7 +191,7 @@ const PrintersTable: NextPage = () => {
           sx={printersTableStyle}
           checkboxSelection
           disableColumnMenu
-          rows={rows}
+          rows={printerData}
           columns={columns}
           filterModel={{
             items: [filter],
