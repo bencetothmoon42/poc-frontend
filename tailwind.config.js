@@ -5,6 +5,12 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontSize: {
+      sm: ['16px', '19px']
+    },
+    letterSpacing: {
+      wide: ".07125em"
+    },
     extend: {
       colors: {
         "pnc-orange": "#EF5500",

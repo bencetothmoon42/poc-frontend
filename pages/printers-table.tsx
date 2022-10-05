@@ -1,4 +1,4 @@
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { gql, useQuery } from "@apollo/client";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
@@ -34,10 +34,28 @@ const columns: GridColDef[] = [
   {
     field: "enabled",
     headerName: "Enabled",
-    minWidth: 64,
+    width: 90,
     cellClassName: "column-with-centered-text",
+    renderCell: (params) => getIcon(params),
+  },
+  {
+    field: "expand",
+    headerName: "",
+    width: 50,
+    cellClassName: "column-with-centered-text",
+    renderCell: () => {
+      return <img src="icons/expand-down.svg" />;
+    },
   },
 ];
+
+const getIcon = (params: GridRenderCellParams) => {
+  return params.value ? (
+    <img src="icons/enabled.svg" />
+  ) : (
+    <img src="icons/disabled.svg" />
+  );
+};
 
 export interface IFilter {
   columnField: string;
@@ -52,31 +70,31 @@ const initialFilter = {
 };
 
 interface IPrinter {
-  id: string,
-  name: string,
-  description: string,
-  enabled: boolean,
-  activePaperId: number,
-  dataFormat: string,
-  location: string,
-  model: string,
-  serialNumber: string,
-  comment: string,
-  destinationId: string,
+  id: string;
+  name: string;
+  description: string;
+  enabled: boolean;
+  activePaperId: number;
+  dataFormat: string;
+  location: string;
+  model: string;
+  serialNumber: string;
+  comment: string;
+  destinationId: string;
 }
 
 interface IConvertedPrinter {
-  id: string,
-  name: string,
-  description: string,
-  enabled: boolean,
-  activePaperId: string,
-  dataFormat: string,
-  location: string,
-  model: string,
-  serialNumber: string,
-  comment: string,
-  destinationId: string,
+  id: string;
+  name: string;
+  description: string;
+  enabled: boolean;
+  activePaperId: string;
+  dataFormat: string;
+  location: string;
+  model: string;
+  serialNumber: string;
+  comment: string;
+  destinationId: string;
 }
 
 const PrintersTable: NextPage = () => {
@@ -86,25 +104,26 @@ const PrintersTable: NextPage = () => {
   const [isPaperType2Checked, setIsPaperType2Checked] =
     useState<boolean>(false);
   const [printerData, setPrinterData] = useState<IConvertedPrinter[]>([]);
+  const [isCheckboxVisible, setIsCheckboxVisible] = useState<boolean>(false)
 
   const { data, error } = useQuery(GET_PRINTERS);
 
   const convertPrinterData = (data: IPrinter[]): IConvertedPrinter[] => {
     let convertedPrinterData: IConvertedPrinter[] = [];
     convertedPrinterData = data.map((printer) =>
-    printer.activePaperId % 2 === 0
+      printer.activePaperId % 3 === 0
         ? { ...printer, activePaperId: "sticky label paper" }
-        : { ...printer, activePaperId: "instruction paper" },
+        : { ...printer, activePaperId: "instruction paper" }
     );
-    return convertedPrinterData
-  }
+    return convertedPrinterData;
+  };
 
   useEffect(() => {
     if (error) {
       console.log(error);
     }
     if (data?.getAllPrinter) {
-      setPrinterData(convertPrinterData(data.getAllPrinter))
+      setPrinterData(convertPrinterData(data.getAllPrinter));
     }
   }, [data, error]);
 
@@ -128,59 +147,47 @@ const PrintersTable: NextPage = () => {
   }, [isPaperType1Checked, isPaperType2Checked]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        width: "100vw",
-        marginTop: "50px",
-      }}
-    >
-      <div
-        style={{
-          width: "200px",
-          marginRight: "25px",
-          fontSize: "16px",
-          letterSpacing: "1.14px",
-          lineHeight: "19px",
-        }}
-      >
-        <h3
-          style={{
-            textTransform: "uppercase",
-            fontWeight: "bold",
-            marginTop: 0,
-          }}
-        >
+    <div className="w-full flex justify-center mt-12">
+      <div className="w-60 text-sm tracking-wide mr-10">
+        <h3 className="uppercase font-bold mt-0">
           Filters
         </h3>
-        <p style={{ fontWeight: "bold" }}>Paper type</p>
-        <div style={{ marginTop: "20px", marginBottom: "20px" }}>
-          <label>
-            <input
-              type="checkbox"
-              name="paperType"
-              value="sticky"
-              id="sticky"
-              style={{ backgroundColor: "black" }}
-              onChange={(e) => setIsPaperType1Checked(e.target.checked)}
-            />
-            Sticky label paper
-          </label>
+        <div className="flex mb-5 mt-4">
+          <img className="mr-1.5" src="icons/expand-down.svg" 
+            onClick={isCheckboxVisible ? () => setIsCheckboxVisible(false) : () => setIsCheckboxVisible(true)}
+          />
+          <p className="font-bold">Paper type</p>
         </div>
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              name="paperType"
-              value="instruction"
-              id="instruction"
-              style={{ backgroundColor: "black" }}
-              onChange={(e) => setIsPaperType2Checked(e.target.checked)}
-            />
-            Instruction paper
-          </label>
-        </div>
+        {isCheckboxVisible ? (
+          <div className="my-5">
+            <div>
+              <label>
+                <input
+                  type="checkbox"
+                  name="paperType"
+                  value="sticky"
+                  id="sticky"
+                  className="bg-pnc-black mr-4 ml-2.5"
+                  onChange={(e) => setIsPaperType1Checked(e.target.checked)}
+                />
+                Sticky label paper
+              </label>
+            </div>
+            <div className="my-5">
+              <label>
+                <input
+                  type="checkbox"
+                  name="paperType"
+                  value="instruction"
+                  id="instruction"
+                  className="bg-pnc-black mr-4 ml-2.5"
+                  onChange={(e) => setIsPaperType2Checked(e.target.checked)}
+                />
+                Instruction paper
+              </label>
+            </div>
+          </div>
+        ) : null }
       </div>
       <div>
         <DataGrid

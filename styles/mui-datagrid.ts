@@ -18,10 +18,9 @@ export const printersTableStyle = {
     lineHeight: "14px",
     fontSize: "12px",
   },
-  "& .MuiDataGrid-columnHeader:last-child .MuiDataGrid-columnHeaderTitleContainer":
-    {
-      justifyContent: "center",
-    },
+  "& .MuiDataGrid-columnHeader:nth-child(5) .MuiDataGrid-columnHeaderTitleContainer": {
+    justifyContent: "center",
+  },
   ".MuiDataGrid-row": {
     alignItems: "center",
     fontSize: "14px",
