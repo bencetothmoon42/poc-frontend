@@ -2,7 +2,7 @@ import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { gql, useQuery } from "@apollo/client";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
-import { printersTableStyle } from "../styles/mui-datagrid";
+import { printersTableStyle } from "../../styles/mui-datagrid";
 
 const GET_PRINTERS = gql`
   query {
@@ -99,12 +99,12 @@ interface IConvertedPrinter {
 
 const PrintersTable: NextPage = () => {
   const [filter, setFilter] = useState<IFilter>(initialFilter);
+  const [isCheckboxVisible, setIsCheckboxVisible] = useState<boolean>(false)
   const [isPaperType1Checked, setIsPaperType1Checked] =
     useState<boolean>(false);
   const [isPaperType2Checked, setIsPaperType2Checked] =
     useState<boolean>(false);
   const [printerData, setPrinterData] = useState<IConvertedPrinter[]>([]);
-  const [isCheckboxVisible, setIsCheckboxVisible] = useState<boolean>(false)
 
   const { data, error } = useQuery(GET_PRINTERS);
 
