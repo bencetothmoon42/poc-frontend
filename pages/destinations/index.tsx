@@ -1,9 +1,9 @@
 import { NextPage } from "next";
 import { gql, useQuery } from "@apollo/client";
-import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { tableStyle } from "../../styles/mui-datagrid";
-import { getStatusIcon } from "../../Utils/statusIcon";
+import { getStatusIcon } from "../../utils/statusIcon";
 
 const GET_DESTINATIONS = gql`
   query {
