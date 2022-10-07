@@ -6,8 +6,8 @@ const versionNumber = '01';
 
 export default function MainLayout(props: { children: React.ReactNode }) {
   return (
-    <>
-      <div className="w-[62rem] mx-auto">
+    <div className="min-h-full relative">
+      <div className="w-[62rem] mx-auto min-h-screen">
         <Header />
         <main className="pb-16">{props.children}</main>
       </div>
@@ -15,6 +15,6 @@ export default function MainLayout(props: { children: React.ReactNode }) {
         updateDate={updateDate}
         versionNumber={versionNumber}
       />
-    </>
+    </div>
   );
 }
