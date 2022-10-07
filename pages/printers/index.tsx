@@ -3,6 +3,7 @@ import { gql, useQuery } from "@apollo/client";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { printersTableStyle } from "../../styles/mui-datagrid";
+import Footer from "../../components/Footer";
 
 const GET_PRINTERS = gql`
   query {
@@ -147,65 +148,68 @@ const PrintersTable: NextPage = () => {
   }, [isPaperType1Checked, isPaperType2Checked]);
 
   return (
-    <div className="w-full flex justify-center mt-12">
-      <div className="w-60 text-sm tracking-wide mr-10">
-        <h3 className="uppercase font-bold mt-0">
-          Filters
-        </h3>
-        <div className="flex mb-5 mt-4">
-          <img className="mr-1.5" src="icons/expand-down.svg" 
-            onClick={isCheckboxVisible ? () => setIsCheckboxVisible(false) : () => setIsCheckboxVisible(true)}
-          />
-          <p className="font-bold">Paper type</p>
-        </div>
-        {isCheckboxVisible ? (
-          <div className="my-5">
-            <div>
-              <label>
-                <input
-                  type="checkbox"
-                  name="paperType"
-                  value="sticky"
-                  id="sticky"
-                  className="bg-pnc-black mr-4 ml-2.5"
-                  onChange={(e) => setIsPaperType1Checked(e.target.checked)}
-                />
-                Sticky label paper
-              </label>
-            </div>
-            <div className="my-5">
-              <label>
-                <input
-                  type="checkbox"
-                  name="paperType"
-                  value="instruction"
-                  id="instruction"
-                  className="bg-pnc-black mr-4 ml-2.5"
-                  onChange={(e) => setIsPaperType2Checked(e.target.checked)}
-                />
-                Instruction paper
-              </label>
-            </div>
+    <>
+      <div className="w-full flex justify-center mt-12">
+        <div className="w-60 text-sm tracking-wide mr-10">
+          <h3 className="uppercase font-bold mt-0">
+            Filters
+          </h3>
+          <div className="flex mb-5 mt-4">
+            <img className="mr-1.5" src="icons/expand-down.svg" 
+              onClick={isCheckboxVisible ? () => setIsCheckboxVisible(false) : () => setIsCheckboxVisible(true)}
+            />
+            <p className="font-bold">Paper type</p>
           </div>
-        ) : null }
+          {isCheckboxVisible ? (
+            <div className="my-5">
+              <div>
+                <label>
+                  <input
+                    type="checkbox"
+                    name="paperType"
+                    value="sticky"
+                    id="sticky"
+                    className="bg-pnc-black mr-4 ml-2.5"
+                    onChange={(e) => setIsPaperType1Checked(e.target.checked)}
+                  />
+                  Sticky label paper
+                </label>
+              </div>
+              <div className="my-5">
+                <label>
+                  <input
+                    type="checkbox"
+                    name="paperType"
+                    value="instruction"
+                    id="instruction"
+                    className="bg-pnc-black mr-4 ml-2.5"
+                    onChange={(e) => setIsPaperType2Checked(e.target.checked)}
+                  />
+                  Instruction paper
+                </label>
+              </div>
+            </div>
+          ) : null }
+        </div>
+        <div>
+          <DataGrid
+            style={{ width: 700 }}
+            autoHeight={true}
+            headerHeight={28}
+            rowHeight={40}
+            sx={printersTableStyle}
+            checkboxSelection
+            disableColumnMenu
+            rows={printerData}
+            columns={columns}
+            filterModel={{
+              items: [filter],
+            }}
+          />
+        </div>
       </div>
-      <div>
-        <DataGrid
-          style={{ width: 700 }}
-          autoHeight={true}
-          headerHeight={28}
-          rowHeight={40}
-          sx={printersTableStyle}
-          checkboxSelection
-          disableColumnMenu
-          rows={printerData}
-          columns={columns}
-          filterModel={{
-            items: [filter],
-          }}
-        />
-      </div>
-    </div>
+    <Footer />
+    </>
   );
 };
 
