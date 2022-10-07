@@ -3,7 +3,6 @@ import { gql, useQuery } from "@apollo/client";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { printersTableStyle } from "../../styles/mui-datagrid";
-import Footer from "../../components/Footer";
 
 const GET_PRINTERS = gql`
   query {
@@ -208,7 +207,6 @@ const PrintersTable: NextPage = () => {
           />
         </div>
       </div>
-    <Footer />
     </>
   );
 };
