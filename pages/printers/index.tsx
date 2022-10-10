@@ -1,8 +1,9 @@
-import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { gql, useQuery } from "@apollo/client";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
-import { printersTableStyle } from "../../styles/mui-datagrid";
+import { tableStyle } from "../../styles/mui-datagrid";
+import { getStatusIcon } from "../../utils/statusIcon";
 
 const GET_PRINTERS = gql`
   query {
@@ -36,7 +37,7 @@ const columns: GridColDef[] = [
     headerName: "Enabled",
     width: 90,
     cellClassName: "column-with-centered-text",
-    renderCell: (params) => getIcon(params),
+    renderCell: (params) => getStatusIcon(params),
   },
   {
     field: "expand",
@@ -48,14 +49,6 @@ const columns: GridColDef[] = [
     },
   },
 ];
-
-const getIcon = (params: GridRenderCellParams) => {
-  return params.value ? (
-    <img src="icons/enabled.svg" />
-  ) : (
-    <img src="icons/disabled.svg" />
-  );
-};
 
 export interface IFilter {
   columnField: string;
@@ -196,7 +189,7 @@ const PrintersTable: NextPage = () => {
             autoHeight={true}
             headerHeight={28}
             rowHeight={40}
-            sx={printersTableStyle}
+            sx={tableStyle}
             checkboxSelection
             disableColumnMenu
             rows={printerData}
