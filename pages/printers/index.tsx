@@ -3,7 +3,7 @@ import { gql, useQuery } from "@apollo/client";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { tableStyle } from "../../styles/mui-datagrid";
-import { getStatusIcon } from "../../Utils/statusIcon";
+import { getStatusIcon } from "../../utils/statusIcon";
 
 const GET_PRINTERS = gql`
   query {
