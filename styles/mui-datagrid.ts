@@ -1,4 +1,4 @@
-export const printersTableStyle = {
+export const tableStyle = {
   "&.MuiDataGrid-root": {
     border: "none",
     margin: "auto",
