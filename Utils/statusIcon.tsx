@@ -1,9 +1,13 @@
 import { GridRenderCellParams } from "@mui/x-data-grid";
+import Image from "next/image";
+import enabled from "../public/icons/enabled.svg";
+import disabled from "../public/icons/disabled.svg";
+
 
 export function getStatusIcon(params: GridRenderCellParams) {
     return params.value ? (
-      <img src="icons/enabled.svg" />
+      <Image src={enabled} alt="enabled"/>
     ) : (
-      <img src="icons/disabled.svg" />
+      <Image src={disabled} alt="disabled"/>
     );
 };

@@ -9,7 +9,8 @@ module.exports = {
       sm: ['16px', '19px']
     },
     letterSpacing: {
-      wide: ".07125em"
+      wide: ".07125em",
+      wider: ".0975em"
     },
     extend: {
       colors: {
@@ -17,6 +18,21 @@ module.exports = {
         "pnc-blue": "#092D67",
         "pnc-grey": "#999999",
         "pnc-black": "#000000",
+        "pnc-white": "#FFFFFF"
+      },
+      animation: {
+        fadeIn: 'fadeIn 0.4s forwards',
+        fadeOut: 'fadeOut 0.4s forwards'
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: 0, marginTop: '-10px' },
+          '100%': { opacity: 1, marginTop: 0},
+        },
+        fadeOut: {
+          '0%': { opacity: 1, marginTop: 0 },
+          '100%': { opacity: 0, marginTop: '-10px' },
+        }
       },
     },
   },

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>12EA321E-602B-45D1-9E15-BF230CFDF8BC</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="components" transform="translate(-620.000000, -236.000000)">
+            <g id="account_circle_black_24dp" transform="translate(620.000000, 236.000000)">
+                <rect id="Rectangle" x="0" y="0" width="24" height="24"></rect>
+                <path d="M12,2 C6.48,2 2,6.48 2,12 C2,17.52 6.48,22 12,22 C17.52,22 22,17.52 22,12 C22,6.48 17.52,2 12,2 Z M12,6 C13.93,6 15.5,7.57 15.5,9.5 C15.5,11.43 13.93,13 12,13 C10.07,13 8.5,11.43 8.5,9.5 C8.5,7.57 10.07,6 12,6 Z M12,20 C9.97,20 7.57,19.18 5.86,17.12 C7.55,15.8 9.68,15 12,15 C14.32,15 16.45,15.8 18.14,17.12 C16.43,19.18 14.03,20 12,20 Z" id="Shape" fill="#000000" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>
