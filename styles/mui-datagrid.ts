@@ -22,6 +22,9 @@ export const tableStyle = {
   "& .MuiDataGrid-columnHeader:nth-child(5) .MuiDataGrid-columnHeaderTitleContainer": {
     justifyContent: "center",
   },
+  "& .MuiSvgIcon-root": {
+    fill: "black",
+  },
   ".MuiDataGrid-row": {
     alignItems: "center",
     fontSize: "16px",

@@ -5,7 +5,7 @@ export default function View() {
     const { asPath } = useRouter();
     
     return asPath.includes('printers') ? 
-        (<div className="border-b-[1px] border-b-pnc-grey py-1.5">
+        (<div className="border-b-[1px] border-b-pnc-grey pt-1.5">
             <nav aria-label="secondary-navigation">
                 <ul className="flex gap-9">
                     {[
@@ -22,5 +22,8 @@ export default function View() {
                     ))}
                 </ul>
             </nav>
+            <div className={`h-0 w-0 border-l-[6px] border-r-[6px] border-b-[6px] border-pnc-white border-b-pnc-grey 
+                ${asPath.includes('list') ? `relative left-7` : `relative left-[148px]`}`}>
+            </div>
         </div>) : null
 }

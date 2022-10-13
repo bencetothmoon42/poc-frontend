@@ -6,6 +6,7 @@ import { tableStyle } from "../../styles/mui-datagrid";
 import { getStatusIcon } from "../../utils/statusIcon";
 import Image from "next/image";
 import expandDown from "../../public/icons/expand-down.svg";
+import checkbox from "../../public/icons/checkbox-checked.svg";
 
 const GET_PRINTERS = gql`
   query {
@@ -165,28 +166,28 @@ const ListView: NextPage = () => {
           <p className="font-bold">Paper type</p>
         </div>
         {isCheckboxVisible ? (
-          <div className={`my-5 ${fadeOut ? `animate-fadeOut`: `animate-fadeIn`}`}>
-            <div>
-              <label>
+          <div className={`${fadeOut ? `animate-fadeOut`: `animate-fadeIn`}`}>
+            <div className="my-5">
+              <label className="flex items-center">
                 <input
                   type="checkbox"
                   name="paperType"
                   value="sticky"
                   id="sticky"
-                  className="bg-pnc-black mr-4 ml-2.5"
+                  className="h-[18px] w-[18px] mr-4 ml-2.5 appearance-none border-2 border-pnc-black rounded-none checked:bg-checkbox bg-no-repeat bg-center"
                   onChange={(e) => setIsPaperType1Checked(e.target.checked)}
                 />
                 Sticky label paper
               </label>
             </div>
             <div className="my-5">
-              <label>
+              <label className="flex items-center">
                 <input
                   type="checkbox"
                   name="paperType"
                   value="instruction"
                   id="instruction"
-                  className="bg-pnc-black mr-4 ml-2.5"
+                  className="h-[18px] w-[18px] mr-4 ml-2.5 appearance-none border-2 border-pnc-black rounded-none checked:bg-checkbox bg-no-repeat bg-center"
                   onChange={(e) => setIsPaperType2Checked(e.target.checked)}
                 />
                 Instruction paper

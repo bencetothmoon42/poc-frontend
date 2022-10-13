@@ -20,6 +20,9 @@ module.exports = {
         "pnc-black": "#000000",
         "pnc-white": "#FFFFFF"
       },
+      backgroundImage: {
+        'checkbox': "url('../public/icons/checkbox-checked.svg')",
+      },
       animation: {
         fadeIn: 'fadeIn 0.4s forwards',
         fadeOut: 'fadeOut 0.4s forwards'

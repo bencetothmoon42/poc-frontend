@@ -5,8 +5,15 @@ export default function Navbar() {
   const { asPath } = useRouter();
     
   const isActive = (path: string) => {
-    if (asPath.includes(path)) return path === '/jobs' ? " text-white bg-pnc-orange" : " text-white bg-pnc-grey";
-    if (!asPath.includes(path)) return path === '/jobs' ? " text-pnc-orange" : "";
+    if (asPath.includes(slicePath(path))) return path === '/jobs' ? " text-white bg-pnc-orange" : " text-white bg-pnc-grey";
+    if (!asPath.includes(slicePath(path))) return path === '/jobs' ? " text-pnc-orange" : "";
+  }
+
+  const slicePath = (path: string) => {
+    let sliceUntil: number = path.indexOf('/', 2);
+    let slicedPath: string;
+    sliceUntil !== -1 ? slicedPath = path.slice(0, sliceUntil) : slicedPath = path;
+    return slicedPath;
   }
 
   return (
