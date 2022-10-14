@@ -140,67 +140,65 @@ const PrintersTable: NextPage = () => {
   }, [isPaperType1Checked, isPaperType2Checked]);
 
   return (
-    <>
-      <div className="w-full flex justify-center mt-12 mb-40">
-        <div className="w-60 text-sm tracking-wide mr-10">
-          <h3 className="uppercase font-bold mt-0">
-            Filters
-          </h3>
-          <div className="flex mb-5 mt-4">
-            <img className="mr-1.5" src="icons/expand-down.svg" 
-              onClick={isCheckboxVisible ? () => setIsCheckboxVisible(false) : () => setIsCheckboxVisible(true)}
-            />
-            <p className="font-bold">Paper type</p>
-          </div>
-          {isCheckboxVisible ? (
-            <div className="my-5">
-              <div>
-                <label>
-                  <input
-                    type="checkbox"
-                    name="paperType"
-                    value="sticky"
-                    id="sticky"
-                    className="bg-pnc-black mr-4 ml-2.5"
-                    onChange={(e) => setIsPaperType1Checked(e.target.checked)}
-                  />
-                  Sticky label paper
-                </label>
-              </div>
-              <div className="my-5">
-                <label>
-                  <input
-                    type="checkbox"
-                    name="paperType"
-                    value="instruction"
-                    id="instruction"
-                    className="bg-pnc-black mr-4 ml-2.5"
-                    onChange={(e) => setIsPaperType2Checked(e.target.checked)}
-                  />
-                  Instruction paper
-                </label>
-              </div>
-            </div>
-          ) : null }
-        </div>
-        <div>
-          <DataGrid
-            style={{ width: 700 }}
-            autoHeight={true}
-            headerHeight={28}
-            rowHeight={40}
-            sx={tableStyle}
-            checkboxSelection
-            disableColumnMenu
-            rows={printerData}
-            columns={columns}
-            filterModel={{
-              items: [filter],
-            }}
+    <div className="w-full flex justify-center mt-12 mb-40">
+      <div className="w-60 text-sm tracking-wide mr-10">
+        <h3 className="uppercase font-bold mt-0">
+          Filters
+        </h3>
+        <div className="flex mb-5 mt-4">
+          <img className="mr-1.5" src="icons/expand-down.svg" 
+            onClick={isCheckboxVisible ? () => setIsCheckboxVisible(false) : () => setIsCheckboxVisible(true)}
           />
+          <p className="font-bold">Paper type</p>
         </div>
+        {isCheckboxVisible ? (
+          <div className="my-5">
+            <div>
+              <label>
+                <input
+                  type="checkbox"
+                  name="paperType"
+                  value="sticky"
+                  id="sticky"
+                  className="bg-pnc-black mr-4 ml-2.5"
+                  onChange={(e) => setIsPaperType1Checked(e.target.checked)}
+                />
+                Sticky label paper
+              </label>
+            </div>
+            <div className="my-5">
+              <label>
+                <input
+                  type="checkbox"
+                  name="paperType"
+                  value="instruction"
+                  id="instruction"
+                  className="bg-pnc-black mr-4 ml-2.5"
+                  onChange={(e) => setIsPaperType2Checked(e.target.checked)}
+                />
+                Instruction paper
+              </label>
+            </div>
+          </div>
+        ) : null }
       </div>
-    </>
+      <div>
+        <DataGrid
+          style={{ width: 700 }}
+          autoHeight={true}
+          headerHeight={28}
+          rowHeight={40}
+          sx={tableStyle}
+          checkboxSelection
+          disableColumnMenu
+          rows={printerData}
+          columns={columns}
+          filterModel={{
+            items: [filter],
+          }}
+        />
+      </div>
+    </div>
   );
 };
 
