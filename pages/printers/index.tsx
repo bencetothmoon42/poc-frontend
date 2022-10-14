@@ -140,7 +140,7 @@ const PrintersTable: NextPage = () => {
   }, [isPaperType1Checked, isPaperType2Checked]);
 
   return (
-    <div className="w-full flex justify-center mt-12 mb-40">
+    <div className="w-full flex justify-center mt-12">
       <div className="w-60 text-sm tracking-wide mr-10">
         <h3 className="uppercase font-bold mt-0">
           Filters
