@@ -6,7 +6,7 @@ import { tableStyle } from "../../styles/mui-datagrid";
 
 const GET_HOUSES = gql`
   query {
-    getAllHouse {
+    getAllHouses {
         id
         name
     }
@@ -45,8 +45,8 @@ const HousesTable: NextPage = () => {
         if (error) {
           console.log(error);
         }
-        if (data?.getAllHouse) {
-            setHouseData(data.getAllHouse);
+        if (data?.getAllHouses) {
+            setHouseData(data.getAllHouses);
         }
       }, [data, error]);
 

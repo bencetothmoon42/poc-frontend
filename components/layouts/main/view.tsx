@@ -3,9 +3,13 @@ import { useRouter } from "next/router";
 
 export default function View() {
     const { asPath } = useRouter();
+
+    if (!asPath.includes('printers')) {
+        return null;
+    }
     
-    return asPath.includes('printers') ? 
-        (<div className="border-y border-y-pnc-grey pt-1.5 mt-[13px]">
+    return (
+        <div className="border-y border-y-pnc-grey pt-1.5 mt-[13px]">
             <nav aria-label="secondary-navigation">
                 <ul className="flex gap-9">
                     {[
@@ -14,7 +18,9 @@ export default function View() {
                     ].map(({ path, label }) => (
                     <li>
                         <Link href={path}>
-                        <a className="text-sm tracking-wide font-bold">
+                        <a className={`flex flex-col items-center pt-2 text-sm tracking-wide font-bold 
+                            ${asPath.includes(path) ? `after:h-0 after:w-0 after:border-[6px] after:border-transparent after:border-b-pnc-grey` : ''}`}
+                        >
                             {label}
                         </a>
                         </Link>
@@ -22,8 +28,6 @@ export default function View() {
                     ))}
                 </ul>
             </nav>
-            <div className={`h-0 w-0 border-l-[6px] border-r-[6px] border-b-[6px] border-pnc-white border-b-pnc-grey 
-                ${asPath.includes('list') ? `relative left-7` : `relative left-[148px]`}`}>
-            </div>
-        </div>) : null
+        </div>
+    )
 }

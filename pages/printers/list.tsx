@@ -6,24 +6,23 @@ import { tableStyle } from "../../styles/mui-datagrid";
 import { getStatusIcon } from "../../utils/statusIcon";
 import Image from "next/image";
 import expandDown from "../../public/icons/expand-down.svg";
-import checkbox from "../../public/icons/checkbox-checked.svg";
 
 const GET_PRINTERS = gql`
-  query {
-    getAllPrinter {
-      id
-      name
-      description
-      enabled
-      activePaperId
-      dataFormat
-      location
-      model
-      serialNumber
-      comment
-      destinationId
+    query printers ($filterBy: FiltersInput) {
+      printers (filterBy: $filterBy) {
+        id
+        name
+        description
+        enabled
+        activePaperId
+        dataFormat
+        location
+        model
+        serialNumber
+        comment
+        destinationId
+      }
     }
-  }
 `;
 
 const columns: GridColDef[] = [
@@ -127,8 +126,8 @@ const ListView: NextPage = () => {
     if (error) {
       console.log(error);
     }
-    if (data?.getAllPrinter) {
-      setPrinterData(convertPrinterData(data.getAllPrinter));
+    if (data?.printers) {
+      setPrinterData(convertPrinterData(data.printers));
     }
   }, [data, error]);
 

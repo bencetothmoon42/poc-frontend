@@ -1,11 +1,7 @@
 import { NextPage } from "next";
 
 const AssignView: NextPage = () => {
-    return (
-        <>
-            <p>Assign view</p>
-        </>
-    )
+    return null
 }
 
 export default AssignView;
