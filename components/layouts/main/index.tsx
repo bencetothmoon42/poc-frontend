@@ -6,7 +6,7 @@ const versionNumber = '01';
 
 export default function MainLayout(props: { children: React.ReactNode }) {
   return (
-      <div className="w-[62rem] mx-auto">
+      <div className="w-[62rem] mx-auto font-open-sans">
         <Header />
         <main className="pb-32">{props.children}</main>
         <Footer 

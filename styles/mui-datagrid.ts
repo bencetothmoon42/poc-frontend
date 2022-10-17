@@ -2,6 +2,7 @@ export const tableStyle = {
   "&.MuiDataGrid-root": {
     border: "none",
     margin: "auto",
+    fontFamily: "'Open Sans', sans-serif",
   },
   ".MuiDataGrid-columnSeparator": {
     display: "none",
@@ -21,9 +22,12 @@ export const tableStyle = {
   "& .MuiDataGrid-columnHeader:nth-child(5) .MuiDataGrid-columnHeaderTitleContainer": {
     justifyContent: "center",
   },
+  "& .MuiSvgIcon-root": {
+    fill: "black",
+  },
   ".MuiDataGrid-row": {
     alignItems: "center",
-    fontSize: "14px",
+    fontSize: "16px",
     letterSpacing: "1.14px",
   },
   ".MuiDataGrid-cell": {

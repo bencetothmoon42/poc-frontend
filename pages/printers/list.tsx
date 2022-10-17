@@ -4,23 +4,25 @@ import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { tableStyle } from "../../styles/mui-datagrid";
 import { getStatusIcon } from "../../utils/statusIcon";
+import Image from "next/image";
+import expandDown from "../../public/icons/expand-down.svg";
 
 const GET_PRINTERS = gql`
-  query {
-    getAllPrinter {
-      id
-      name
-      description
-      enabled
-      activePaperId
-      dataFormat
-      location
-      model
-      serialNumber
-      comment
-      destinationId
+    query printers ($filterBy: FiltersInput) {
+      printers (filterBy: $filterBy) {
+        id
+        name
+        description
+        enabled
+        activePaperId
+        dataFormat
+        location
+        model
+        serialNumber
+        comment
+        destinationId
+      }
     }
-  }
 `;
 
 const columns: GridColDef[] = [
@@ -45,7 +47,7 @@ const columns: GridColDef[] = [
     width: 50,
     cellClassName: "column-with-centered-text",
     renderCell: () => {
-      return <img src="icons/expand-down.svg" />;
+      return <Image src={expandDown} alt="expand button"/>;
     },
   },
 ];
@@ -90,7 +92,7 @@ interface IConvertedPrinter {
   destinationId: string;
 }
 
-const PrintersTable: NextPage = () => {
+const ListView: NextPage = () => {
   const [filter, setFilter] = useState<IFilter>(initialFilter);
   const [isCheckboxVisible, setIsCheckboxVisible] = useState<boolean>(false)
   const [isPaperType1Checked, setIsPaperType1Checked] =
@@ -98,6 +100,7 @@ const PrintersTable: NextPage = () => {
   const [isPaperType2Checked, setIsPaperType2Checked] =
     useState<boolean>(false);
   const [printerData, setPrinterData] = useState<IConvertedPrinter[]>([]);
+  const [fadeOut, setFadeOut] = useState<boolean>(false)
 
   const { data, error } = useQuery(GET_PRINTERS);
 
@@ -111,12 +114,20 @@ const PrintersTable: NextPage = () => {
     return convertedPrinterData;
   };
 
+  const hideCheckbox = () => {
+    setFadeOut(true)
+    setTimeout(() => {
+      setIsCheckboxVisible(false)
+      setFadeOut(false)
+    }, 500)
+  }
+
   useEffect(() => {
     if (error) {
       console.log(error);
     }
-    if (data?.getAllPrinter) {
-      setPrinterData(convertPrinterData(data.getAllPrinter));
+    if (data?.printers) {
+      setPrinterData(convertPrinterData(data.printers));
     }
   }, [data, error]);
 
@@ -145,35 +156,37 @@ const PrintersTable: NextPage = () => {
         <h3 className="uppercase font-bold mt-0">
           Filters
         </h3>
-        <div className="flex mb-5 mt-4">
-          <img className="mr-1.5" src="icons/expand-down.svg" 
-            onClick={isCheckboxVisible ? () => setIsCheckboxVisible(false) : () => setIsCheckboxVisible(true)}
-          />
+        <div className="flex mb-5 mt-4 items-center">
+          <span className="flex mr-1.5 content-center">
+            <Image src={expandDown} alt="expand button"
+              onClick={isCheckboxVisible ? hideCheckbox : () => setIsCheckboxVisible(true)}
+            />
+          </span>
           <p className="font-bold">Paper type</p>
         </div>
         {isCheckboxVisible ? (
-          <div className="my-5">
-            <div>
-              <label>
+          <div className={`${fadeOut ? `animate-fadeOut`: `animate-fadeIn`}`}>
+            <div className="my-5">
+              <label className="flex items-center">
                 <input
                   type="checkbox"
                   name="paperType"
                   value="sticky"
                   id="sticky"
-                  className="bg-pnc-black mr-4 ml-2.5"
+                  className="h-[18px] w-[18px] mr-4 ml-2.5 appearance-none border-2 border-pnc-black rounded-none checked:bg-checkbox bg-no-repeat bg-center"
                   onChange={(e) => setIsPaperType1Checked(e.target.checked)}
                 />
                 Sticky label paper
               </label>
             </div>
             <div className="my-5">
-              <label>
+              <label className="flex items-center">
                 <input
                   type="checkbox"
                   name="paperType"
                   value="instruction"
                   id="instruction"
-                  className="bg-pnc-black mr-4 ml-2.5"
+                  className="h-[18px] w-[18px] mr-4 ml-2.5 appearance-none border-2 border-pnc-black rounded-none checked:bg-checkbox bg-no-repeat bg-center"
                   onChange={(e) => setIsPaperType2Checked(e.target.checked)}
                 />
                 Instruction paper
@@ -184,7 +197,7 @@ const PrintersTable: NextPage = () => {
       </div>
       <div>
         <DataGrid
-          style={{ width: 700 }}
+          style={{ width: 708 }}
           autoHeight={true}
           headerHeight={28}
           rowHeight={40}
@@ -202,4 +215,4 @@ const PrintersTable: NextPage = () => {
   );
 };
 
-export default PrintersTable;
+export default ListView;

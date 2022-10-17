@@ -7,7 +7,7 @@ import { getStatusIcon } from "../../utils/statusIcon";
 
 const GET_DESTINATIONS = gql`
   query {
-    getAllDestination {
+    getAllDestinations {
         id
         houseId
         name
@@ -63,8 +63,8 @@ const DestinationsTable: NextPage = () => {
         if (error) {
           console.log(error);
         }
-        if (data?.getAllDestination) {
-            setDestinationData(data.getAllDestination);
+        if (data?.getAllDestinations) {
+            setDestinationData(data.getAllDestinations);
         }
       }, [data, error]);
 
