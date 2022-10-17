@@ -5,7 +5,7 @@ export default function View() {
     const { asPath } = useRouter();
     
     return asPath.includes('printers') ? 
-        (<div className="border-b-[1px] border-b-pnc-grey pt-1.5">
+        (<div className="border-y border-y-pnc-grey pt-1.5 mt-[13px]">
             <nav aria-label="secondary-navigation">
                 <ul className="flex gap-9">
                     {[

@@ -5,7 +5,7 @@ import profile from "../../../public/icons/profile.svg";
 
 export default function Menu() {
     return (
-      <div className="flex fixed top-16 right-16 justify-between">
+      <div className="flex">
         <div className="text-sm tracking-wide uppercase font-bold mx-2">
             <p>Destination</p>
             <p>Shop place</p>

@@ -2,7 +2,7 @@ export const tableStyle = {
   "&.MuiDataGrid-root": {
     border: "none",
     margin: "auto",
-    fontFamily: "Open Sans Regular",
+    fontFamily: "'Open Sans', sans-serif",
   },
   ".MuiDataGrid-columnSeparator": {
     display: "none",

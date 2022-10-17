@@ -13,6 +13,9 @@ module.exports = {
       wider: ".0975em"
     },
     extend: {
+      fontFamily: {
+        'open-sans': ['Open Sans', 'sans-serif'] 
+      },
       colors: {
         "pnc-orange": "#EF5500",
         "pnc-blue": "#092D67",

@@ -6,11 +6,15 @@ import Searchbar from "./searchbar";
 
 export default function AppHeader() {
   return (
-    <header className="flex flex-col">
-      <Brand />
-      <Menu />
-      <Searchbar />
-      <Navbar />
+    <header className="relative flex flex-col">
+      <Brand/>
+      <div className="absolute top-16 right-[-26rem]">
+        <Menu />
+      </div>
+      <div className="flex place-content-between">
+        <Navbar />
+        <Searchbar />
+      </div>
       <View />
     </header>
   );
